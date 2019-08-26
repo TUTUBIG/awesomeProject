@@ -1,0 +1,22 @@
+syntax = "proto3";
+package pb;
+
+service demo {
+    rpc SayHello (HelloRequest) returns (HelloResponse) {}
+    rpc ReportName (ReportNameRequest) returns ( stream ReportNameResponse) {}
+}
+
+message HelloRequest {
+    string greeting = 1;
+}
+
+message HelloResponse {
+    string reply  = 1;
+}
+
+message ReportNameRequest {
+}
+
+message ReportNameResponse {
+    string name = 1;
+}
