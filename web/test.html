@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+	const xhr = new XMLHttpRequest();
+	xhr.open('GET', 'http://127.0.0.1:9090/a/test', true);
+	xhr.onreadystatechange = function() {
+	        alert(xhr.responseText);
+	}
+	xhr.send(null);
+    </script>
+</body>
+</html>

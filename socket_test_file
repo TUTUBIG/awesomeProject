@@ -1,9 +1,0 @@
-Test Socket!
-Hello
-Hi
-你好！
-大家好！
-For example, it will work even when I run it from my home directory
-
-The program will print the contents of test.txt
-This seems to be an easy way but comes with the pitfall that the file should be located in the path specified in the program else this method will fail.
