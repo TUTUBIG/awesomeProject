@@ -9,5 +9,6 @@ func TestSort(t *testing.T) {
 	s.Init()
 	s.Select()*/
 	s.Init()
-	s.Quick()
+	//s.Quick()
+	s.Heap()
 }

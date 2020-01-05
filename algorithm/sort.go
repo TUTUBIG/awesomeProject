@@ -81,3 +81,42 @@ func (s Sort) Quick() {
 
 	fmt.Println("------Quick------", s)
 }
+
+func maxHeap(array []int, rootIndex int, size int) {
+	if rootIndex < size {
+		maxIndex := rootIndex
+		leftIndex, rightIndex := 2*rootIndex+1, 2*rootIndex+2
+		if leftIndex < size {
+			if array[leftIndex] > array[maxIndex] {
+				maxIndex = leftIndex
+			}
+		}
+
+		if rightIndex < size {
+			if array[rightIndex] > array[maxIndex] {
+				maxIndex = rightIndex
+			}
+		}
+		if maxIndex != rootIndex {
+			array[rootIndex], array[maxIndex] = array[maxIndex], array[rootIndex]
+		}
+	}
+
+}
+
+func (s Sort) Heap() {
+	if len(s) <= 1 {
+		return
+	}
+
+	for j := len(s); j > 0; j-- {
+		t := s[:j]
+		for i := len(t) - 1; i >= 0; i-- {
+			maxHeap(t, i, len(t))
+		}
+		t[0], t[len(t)-1] = t[len(t)-1], t[0]
+	}
+
+	fmt.Println("--------Heap-------", s)
+
+}
