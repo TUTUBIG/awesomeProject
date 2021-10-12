@@ -34,13 +34,14 @@ func test4() (x int) {
 	return 9
 }
 
-func (a A) Func()  {
+func (a A) Func() {
 	fmt.Println("a")
 }
 
 type B struct {
 	A
 }
+
 func (b B) Func() {
 	fmt.Println("b")
 }

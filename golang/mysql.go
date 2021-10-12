@@ -7,7 +7,7 @@ import (
 
 func main() {
 	db := sql.DB{}
-	tx,_ := db.Begin()
+	tx, _ := db.Begin()
 	tx.Commit()
 	defer tx.Rollback()
 

@@ -14,12 +14,12 @@ type A struct {
 
 func main() {
 	a := &A{
-		a:&A1{
-			A:"A",
-			B:"B",
+		a: &A1{
+			A: "A",
+			B: "B",
 		},
-		b:"b",
+		b: "b",
 	}
 
-	fmt.Printf("%v",a.a)
+	fmt.Printf("%v", a.a)
 }
