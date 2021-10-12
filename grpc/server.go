@@ -3,9 +3,9 @@ package main
 //go:generate protoc -I=pb/ pb/server.proto --go_out=plugins=grpc:pb/
 
 import (
-	"awesomeProject/grpc/pb"
 	"context"
 	"fmt"
+	"github.com/TUTUBIG/awesomeProject/grpc/pb"
 	"github.com/hashicorp/consul/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health/grpc_health_v1"
@@ -71,9 +71,9 @@ func RegitserService(ca string, cs *ConsulService) {
 		Port:    cs.Port,                                          // Service Port
 		Address: cs.IP,                                            //Service IP
 		Check: &api.AgentServiceCheck{ // Health Examination
-			Interval: interval.String(),                                // health check interval
-			GRPC:     fmt.Sprintf("%v:%v/%v", cs.IP, cs.Port, cs.Name), // grpc support, address to perform health check, service will be passed to Health. Check function
-			DeregisterCriticalServiceAfter: deregister.String(), // logout time, equivalent to expiration time
+			Interval:                       interval.String(),                                // health check interval
+			GRPC:                           fmt.Sprintf("%v:%v/%v", cs.IP, cs.Port, cs.Name), // grpc support, address to perform health check, service will be passed to Health. Check function
+			DeregisterCriticalServiceAfter: deregister.String(),                              // logout time, equivalent to expiration time
 		},
 	}
 
