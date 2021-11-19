@@ -1,11 +1,26 @@
 package algorithm
 
+/*
+				random read		insert/delete
+  Array:   			O(1)			O(n)
+  Link List:		O(n)			O(1)
+
+  * Array will use a contiguous memory space so that CPU cache could be used
+*/
+
 import "fmt"
 
 type ListNode struct {
 	next *ListNode
 	prev *ListNode
 	data interface{}
+}
+
+type ListOperation interface {
+	print()
+	insertN(data interface{}, n int)
+	deleteN(n int)
+	reverse()
 }
 
 type SingleList struct {
@@ -16,114 +31,57 @@ type DoubleList struct {
 	*ListNode
 }
 
-func (sl *SingleList) Println() {
-	if sl == nil {
-		fmt.Println("nil")
-		return
-	}
-
-	if sl.CheckCircle() {
-		fmt.Println("circle list")
-		return
-	}
-
+func (sl *SingleList) print() {
 	cur := sl.ListNode
-
-	for cur != nil {
-		fmt.Print(cur.data)
-		if cur.next != nil {
-			fmt.Print("->")
-		}
-		cur = cur.next
-	}
-	fmt.Print("\n")
-}
-
-func (sl *SingleList) Reverse() {
-	if sl == nil {
-		return
-	}
-	if sl.CheckCircle() {
-		fmt.Println("circle list")
-		return
-	}
-	cur := sl.ListNode
-	var curOld *ListNode
-	for cur != nil {
-		temp := cur.next
-		cur.next = curOld
-		curOld = cur
-		cur = temp
-	}
-	sl.ListNode = curOld
-}
-
-func (sl *SingleList) GenerateCircle() {
-	if sl == nil {
-		return
-	}
-
-	head, cur := sl.ListNode, sl.ListNode
 
 	for cur != nil {
 		if cur.next == nil {
-			cur.next = head
-			break
+			fmt.Print(cur.data)
+		} else {
+			fmt.Print(cur.data, " ->")
 		}
 		cur = cur.next
 	}
 }
 
-func (sl *SingleList) CheckCircle() bool {
-	if sl == nil || sl.next == nil {
-		return false
-	}
+func (sl *SingleList) insertN(data interface{}, n int) {
 
-	cur, curFast := sl.ListNode, sl.next
+}
 
-	for curFast != nil {
-		if cur == curFast {
-			return true
-		}
-		cur = cur.next
-		if curFast.next == nil {
+func (sl *SingleList) reverse() {
+
+}
+
+func (sl *SingleList) checkCircle() bool {
+	slow, fast := sl.ListNode, sl.ListNode
+	for fast != nil {
+		slow = slow.next
+		if fast.next == nil {
 			return false
 		}
-		curFast = curFast.next.next
+		fast = fast.next.next
+
+		if slow == fast {
+			return true
+		}
 	}
 	return false
 }
 
-func (dl *DoubleList) Println() {
-	if dl == nil {
-		fmt.Println("nil")
+func createRoundSingleList(data ...interface{}) SingleList {
+	if len(data) == 0 {
+		return SingleList{nil}
 	}
-
-	cur := dl.ListNode
-
-	for cur != nil {
-		fmt.Print(cur.data)
-		if cur.next != nil {
-			fmt.Print("->")
+	listNodes := make([]ListNode, len(data))
+	for i := range data {
+		listNodes[i].data = data[i]
+		if i < len(data)-1 {
+			listNodes[i].next = &listNodes[i+1]
+		} else {
+			listNodes[i].next = &listNodes[0]
 		}
-		cur = cur.next
 	}
-	fmt.Print("\n")
-}
-
-func (dl *DoubleList) Reverse() {
-	if dl == nil {
-		return
-	}
-	cur := dl.ListNode
-
-	for cur != nil {
-		temp := cur.prev
-		cur.prev = cur.next
-		cur.next = temp
-		dl.ListNode = cur
-		cur = cur.prev
-	}
+	return SingleList{&listNodes[0]}
 }
 
 func createSingleList(data ...interface{}) SingleList {
@@ -170,3 +128,14 @@ func createDoubleList(data ...interface{}) DoubleList {
 	return DoubleList{listNodes[0]}
 
 }
+
+// todo print
+// todo insert
+// todo delete
+// todo reverse
+// todo check circle
+// todo find middle node
+// todo merge
+// todo LRU: Least Recently Used
+// todo FIFO: First In, First Out
+// todo LFU: Least Frequently Used

@@ -7,9 +7,9 @@ import (
 
 func TestCreateSingleList(t *testing.T) {
 	sl := createSingleList(1, 2, 3, 4, 5)
-	fmt.Println(sl.CheckCircle())
-	sl.GenerateCircle()
-	fmt.Println(sl.CheckCircle())
+	fmt.Println(sl.checkCircle())
+	rl := createRoundSingleList(1, 2, 3, 4, 5)
+	fmt.Println(rl.checkCircle())
 	//sl.Println()
 	//sl.Reverse()
 	//sl.Println()
