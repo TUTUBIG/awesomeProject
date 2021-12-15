@@ -66,4 +66,45 @@ func main() {
 	d = append(d, 1)
 	fmt.Println(d)
 
+	fmt.Println(strings.Split("", ",")[0])
+
+	fmt.Println("=======")
+	type ABT struct {
+		A int
+		B string
+	}
+	at := make([]ABT, 0, 5)
+	at = append(at, ABT{
+		A: 1,
+		B: "1",
+	}, ABT{
+		A: 2,
+		B: "",
+	}, ABT{
+		A: 3,
+		B: "",
+	}, ABT{
+		A: 4,
+		B: "",
+	}, ABT{
+		A: 5,
+		B: "5",
+	})
+	bt := make([]ABT, 0, 5)
+	for i, t := range at {
+		if t.B == "" {
+			bt = append(bt, at[i])
+		}
+	}
+	for i := range bt {
+		bt[i].B = fmt.Sprint(bt[i].A)
+	}
+
+	fmt.Println(at)
+	fmt.Println(bt)
+
+	aaa := []int{1, 2, 3, 4}
+	bbb := []int{5, 6, 7}
+	aaa = append(aaa, bbb...)
+	fmt.Println(aaa)
 }

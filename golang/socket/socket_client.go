@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"syscall"
 	"time"
 )
+
+const file1 = "/Users/liukui/go/src/awesomeProject/socket_test_file1"
 
 func main() {
 	socket, err := syscall.Socket(syscall.AF_INET, syscall.SOCK_STREAM, syscall.IPPROTO_TCP)
@@ -24,7 +27,7 @@ func main() {
 
 	socketAddr := syscall.SockaddrInet4{
 		Port: 31028,
-		Addr: [4]byte{127, 0, 0, 1},
+		Addr: [4]byte{192, 168, 3, 35},
 	}
 
 	if err := syscall.Connect(socket, &socketAddr); err != nil {
@@ -34,7 +37,27 @@ func main() {
 
 	fmt.Println("------connect-------socket: ", socket)
 
-	f, e := os.Create("socket_test_file_1")
+	go func(fd int) {
+		ping(fd)
+	}(socket)
+
+	time.Sleep(time.Minute)
+	return
+}
+
+func ping(fd int) {
+	for true {
+		time.Sleep(time.Second)
+		_, e := syscall.Write(fd, []byte("Ping"))
+		if e != nil {
+			log.Println(e)
+		}
+	}
+
+}
+
+func readFile(fd int) {
+	f, e := os.Create(file1)
 	if e != nil {
 		fmt.Println(e)
 		return
@@ -43,7 +66,7 @@ func main() {
 	for {
 		time.Sleep(time.Second)
 		var buf [128]byte
-		n, e := syscall.Read(socket, buf[:])
+		n, e := syscall.Read(fd, buf[:])
 		if e != nil {
 			fmt.Println(e)
 			break
@@ -59,5 +82,4 @@ func main() {
 	}
 
 	fmt.Println(f.Sync(), f.Close())
-	return
 }
