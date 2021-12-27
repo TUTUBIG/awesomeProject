@@ -7,13 +7,13 @@ type A1 struct {
 	B string
 }
 
-type A struct {
+type AA struct {
 	a *A1
 	b string
 }
 
 func main() {
-	a := &A{
+	a := &AA{
 		a: &A1{
 			A: "A",
 			B: "B",
