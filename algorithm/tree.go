@@ -16,15 +16,16 @@ type BinaryTree struct {
 
 func (bt *BinaryTree) getDiameter() int {
 	diameterSum := 0
-	return diameter(bt.root, diameterSum)
+	return diameter(bt.root, &diameterSum)
 }
 
-func diameter(root *BinaryTreeNode, diameterSum int) int {
+func diameter(root *BinaryTreeNode, diameterSum *int) int {
 	if root == nil {
 		return 0
 	}
 	lDiameter, rDiameter := diameter(root.lChild, diameterSum), diameter(root.rChild, diameterSum)
-
+	*diameterSum = int(math.Max(float64(lDiameter)+float64(rDiameter), float64(*diameterSum)))
+	return int(math.Max(float64(lDiameter), float64(rDiameter))) + 1
 }
 
 func (bt *BinaryTree) getMaxDepth() int {
