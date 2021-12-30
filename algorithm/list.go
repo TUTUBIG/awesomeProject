@@ -18,9 +18,12 @@ type ListNode struct {
 
 type ListOperation interface {
 	print()
-	insertN(data interface{}, n int)
-	deleteN(n int)
+	insertLastN(data interface{}, n int)
+	deleteLastN(n int)
 	reverse()
+	checkCircle() bool
+	findMiddleNode() int
+	merge(ln *ListNode)
 }
 
 type SingleList struct {
@@ -44,7 +47,18 @@ func (sl *SingleList) print() {
 	}
 }
 
-func (sl *SingleList) insertN(data interface{}, n int) {
+func (sl *SingleList) insertLastN(data interface{}, n int) {
+	head, tail := sl.ListNode, sl.ListNode
+	for tail != nil {
+		tail = tail.next
+		n--
+		if n <= 0 {
+			head = head.next
+		}
+	}
+}
+
+func (sl *SingleList) deleteLastN(n int) {
 
 }
 
@@ -129,13 +143,6 @@ func createDoubleList(data ...interface{}) DoubleList {
 
 }
 
-// todo print
-// todo insert
-// todo delete
-// todo reverse
-// todo check circle
-// todo find middle node
-// todo merge
 // todo LRU: Least Recently Used
 // todo FIFO: First In, First Out
 // todo LFU: Least Frequently Used
