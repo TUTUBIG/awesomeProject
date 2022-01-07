@@ -1,1 +1,1 @@
-package algorithm
+package main

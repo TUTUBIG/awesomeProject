@@ -1,4 +1,4 @@
-package algorithm
+package main
 
 type heap interface {
 	heapify()

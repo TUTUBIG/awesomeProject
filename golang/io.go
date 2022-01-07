@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"compress/gzip"
+	"fmt"
 	"github.com/valyala/fasthttp"
 	"io"
 	"log"
@@ -10,6 +12,64 @@ import (
 )
 
 func main() {
+	// raw()
+	zip := compression("hello")
+	unzip := decompression(zip)
+	fmt.Println(string(unzip))
+}
+
+func raw() {
+	b := new(bytes.Buffer)
+	b.WriteString("hello")
+	fmt.Println(b.String())
+	r := make([]byte, 10)
+	n, _ := b.Read(r)
+	fmt.Println(string(r[:n]))
+	r1 := make([]byte, 1)
+	_, _ = b.Read(r1[:])
+	fmt.Println(string(r1[:]))
+}
+
+func compression(origin string) []byte {
+	b := new(bytes.Buffer)
+	w := gzip.NewWriter(b)
+	_, e := w.Write([]byte(origin))
+	if e != nil {
+		panic(e)
+	}
+	if e := w.Flush(); e != nil {
+		panic(e)
+	}
+
+	if e := w.Close(); e != nil {
+		panic(e)
+	}
+
+	return b.Bytes()
+}
+
+func decompression(zip []byte) []byte {
+	r, e := gzip.NewReader(bytes.NewReader(zip))
+	if e != nil {
+		panic(e)
+	}
+	defer r.Close()
+
+	/*unzip,e := ioutil.ReadAll(r)
+	if e != nil {
+		panic(e)
+	}*/
+
+	var unzip [128]byte
+	n, e := r.Read(unzip[:])
+	if e != nil {
+		panic(e)
+	}
+
+	return unzip[:n]
+}
+
+func standardHttp() {
 	res, err := http.Get("http://baidu.com")
 	if err != nil {
 		log.Fatal(err)
@@ -27,8 +87,6 @@ func main() {
 	}
 
 	log.Println("resp", buffer.String())
-
-	fastHttp()
 }
 
 func fastHttp() {
