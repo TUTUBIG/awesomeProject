@@ -1,4 +1,4 @@
-package main
+package algorithm
 
 import (
 	"fmt"
@@ -59,8 +59,8 @@ func balanced(root *BinaryTreeNode) int {
 
 func initRoot(data int) BinaryTree {
 	bt := new(BinaryTree)
-	bt.BinaryTreeNode = new(BinaryTreeNode)
-	bt.data = data
+	bt.root = new(BinaryTreeNode)
+	bt.root.data = data
 	return *bt
 }
 
@@ -69,7 +69,7 @@ func (bt *BinaryTree) insert(data int) {
 		return
 	}
 
-	cur := bt.BinaryTreeNode
+	cur := bt.root
 
 	for cur != nil {
 		if data < cur.data {
@@ -101,7 +101,7 @@ func (bt *BinaryTree) print() {
 	}
 
 	stack := new(Stack)
-	cur := bt.BinaryTreeNode
+	cur := bt.root
 
 	for cur != nil {
 		if cur.lChild != nil {
