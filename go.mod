@@ -9,9 +9,11 @@ require (
 	github.com/fasthttp/websocket v1.4.3
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/gofiber/fiber/v2 v2.24.0
 	github.com/golang/protobuf v1.5.2
 	github.com/gorilla/websocket v1.4.2
 	github.com/hashicorp/consul/api v1.12.0
+	github.com/minio/minio-go/v7 v7.0.23
 	github.com/nsqio/go-nsq v1.0.8
 	github.com/prometheus/common v0.6.0
 	github.com/valyala/fasthttp v1.31.0

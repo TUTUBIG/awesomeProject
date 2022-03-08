@@ -9,14 +9,26 @@ import (
 )
 
 func main() {
-	data := `{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":0}`
+	// data := `{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":0}`
+	f, e := ioutil.ReadFile(`eth_call_bsc.json`)
+	if e != nil {
+		panic(e)
+	}
+
+	// log.Println(len(f))
+
 	b := new(bytes.Buffer)
 	w := gzip.NewWriter(b)
-	w.Write([]byte(data))
+
+	w.Write(f)
 	w.Flush()
 	w.Close()
 
-	req, _ := http.NewRequest(http.MethodGet, "https://apis-stage.ankr.com/b2870b2a3ec448008017a4e3b0d01b3c/057b1fcba4f9894b308e1e11c11864a7/binance/full/main", b)
+	// b.Write(f)
+
+	log.Println(b.Len())
+
+	req, _ := http.NewRequest(http.MethodPost, "https://apis-stage.ankr.com/d468fe2166e94ac6b8062a89909a9870/7af9c7a27032e18bc95fda33ab009406/binance/full/main", b)
 	req.Header.Set("Content-Encoding", "gzip")
 	// req.Header.Set("Content-Type","application/json")
 	res, err := http.DefaultClient.Do(req)
