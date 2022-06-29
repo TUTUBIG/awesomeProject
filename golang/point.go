@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 type P struct {
 	A string
@@ -27,4 +30,24 @@ func main() {
 	fmt.Println(copy(b, a[:3]))
 
 	fmt.Println(b, len(b), cap(b))
+
+	var p10 *P
+	test(p10)
+	p11 := new(P)
+	test(p11)
+	test(nil)
+}
+
+func test(i interface{}) {
+	if i == nil {
+		fmt.Println("nil nil")
+		return
+	}
+	if reflect.ValueOf(i).Kind() == reflect.Ptr {
+		fmt.Println("ptr")
+	}
+
+	if reflect.ValueOf(i).IsNil() {
+		fmt.Println("nil")
+	}
 }

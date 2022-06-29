@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type A struct {
 	A1 string
@@ -40,7 +43,21 @@ func main() {
 
 	fmt.Println(m[a1], m[a3])
 
-	m2 := make(map[string]map[string]string, 0)
-	m2["hello"]["haha"] = 1
-	fmt.Println(m2["hello"]["haha"])
+	/*m2 := make(map[string]map[string]string, 0)
+	m2["hello"]["haha"] = "1"
+
+	fmt.Println(m2["hello"]["haha"])*/
+
+	sm := make(map[string]string, 1)
+	sm["1"] = "1"
+
+	for i := 0; i < 50; i++ {
+		go func() {
+			for {
+				fmt.Println(sm["1"])
+			}
+		}()
+	}
+
+	time.Sleep(time.Minute)
 }

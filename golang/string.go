@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 	"time"
 )
@@ -61,4 +62,8 @@ func main() {
 	t := time.Now()
 
 	fmt.Println(t.Unix(), t.UnixNano(), uint64(t.Unix())<<16|uint64(0))
+
+	a := "/sdfsfds/fsdfsafds/bb/graphql/ui"
+	i := strings.Index(a, "graphql")
+	fmt.Println(a[i:])
 }

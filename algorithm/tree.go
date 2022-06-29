@@ -1,6 +1,9 @@
 package algorithm
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type BinaryTreeNode struct {
 	data           int
@@ -8,13 +11,56 @@ type BinaryTreeNode struct {
 }
 
 type BinaryTree struct {
-	*BinaryTreeNode
+	root *BinaryTreeNode
+}
+
+func (bt *BinaryTree) getDiameter() int {
+	diameterSum := 0
+	return diameter(bt.root, &diameterSum)
+}
+
+func diameter(root *BinaryTreeNode, diameterSum *int) int {
+	if root == nil {
+		return 0
+	}
+	lDiameter, rDiameter := diameter(root.lChild, diameterSum), diameter(root.rChild, diameterSum)
+	*diameterSum = int(math.Max(float64(lDiameter)+float64(rDiameter), float64(*diameterSum)))
+	return int(math.Max(float64(lDiameter), float64(rDiameter))) + 1
+}
+
+func (bt *BinaryTree) getMaxDepth() int {
+	return maxDepth(bt.root)
+}
+
+func maxDepth(root *BinaryTreeNode) int {
+	if root == nil {
+		return 0
+	}
+	return int(math.Max(float64(maxDepth(root.lChild)), float64(maxDepth(root.rChild)))) + 1
+}
+
+func (bt *BinaryTree) isBalanced() bool {
+	return balanced(bt.root) != -1
+}
+
+func balanced(root *BinaryTreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	left, right := balanced(root.lChild), balanced(root.rChild)
+
+	if left == -1 || right == -1 || math.Abs(float64(left)-float64(right)) > 1 {
+		return -1
+	}
+
+	return 1 + int(math.Max(float64(left), float64(right)))
 }
 
 func initRoot(data int) BinaryTree {
 	bt := new(BinaryTree)
-	bt.BinaryTreeNode = new(BinaryTreeNode)
-	bt.data = data
+	bt.root = new(BinaryTreeNode)
+	bt.root.data = data
 	return *bt
 }
 
@@ -23,7 +69,7 @@ func (bt *BinaryTree) insert(data int) {
 		return
 	}
 
-	cur := bt.BinaryTreeNode
+	cur := bt.root
 
 	for cur != nil {
 		if data < cur.data {
@@ -55,7 +101,7 @@ func (bt *BinaryTree) print() {
 	}
 
 	stack := new(Stack)
-	cur := bt.BinaryTreeNode
+	cur := bt.root
 
 	for cur != nil {
 		if cur.lChild != nil {

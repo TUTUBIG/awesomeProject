@@ -58,4 +58,12 @@ func main() {
 	fmt.Printf("in main: x = %d\n", test3())
 	fmt.Println("test4")
 	fmt.Printf("in main: x = %d\n", test4())
+
+	Aa()
+}
+
+func Aa() {
+	var i *int
+	return
+	defer fmt.Println(i)
 }

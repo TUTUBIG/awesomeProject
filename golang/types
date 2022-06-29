@@ -1,0 +1,26 @@
+package main
+
+import (
+	"fmt"
+	"unsafe"
+)
+
+type T struct {
+	A string
+	B int
+	C [2]string
+	D []string
+}
+
+func main() {
+	var t T
+	var t1 *T
+	fmt.Println(unsafe.Sizeof(t),unsafe.Sizeof(t.A),unsafe.Sizeof(t.B),unsafe.Sizeof(t.C),unsafe.Sizeof(t.D), unsafe.Sizeof(t1))
+	t1 = new(T)
+	t1.D = append(t1.D,"a","b","c","d")
+	fmt.Println(unsafe.Sizeof(t1),unsafe.Sizeof(t1.D))
+	var i interface{}
+	i = t
+	fmt.Println(unsafe.Sizeof(i))
+	fmt.Println("Hello, playground")
+}
