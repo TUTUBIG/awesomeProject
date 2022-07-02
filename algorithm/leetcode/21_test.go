@@ -1,11 +1,13 @@
 package main
 
+import "testing"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
-func main() {
+func TestMerge(t *testing.T) {
 	l1 := &ListNode{
 		Val: 2,
 		Next: &ListNode{

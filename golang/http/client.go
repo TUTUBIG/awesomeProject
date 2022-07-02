@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	res, err := http.Get("https://baidu.com")
+	res, err := http.Get("https://localhost.com/test")
 	if err != nil {
 		log.Fatal(err)
 	}

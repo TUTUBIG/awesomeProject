@@ -1,21 +1,26 @@
-package designPattern
-
-import "fmt"
-
 /*
 	The strategy pattern (also known as the policy pattern) is a behavioral software design pattern that enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use.
 */
 
+package designPattern
+
+import "fmt"
+
 type Vehicle struct {
 	brakeSystem BrakeBehavior
+	brandName   string
+}
+
+func NewVehicle(brakeSystem BrakeBehavior, brandName string) *Vehicle {
+	return &Vehicle{brakeSystem: brakeSystem, brandName: brandName}
 }
 
 func (v Vehicle) ApplyBrake() {
 	v.brakeSystem.Brake()
 }
 
-func CreateVehicle(brakeSystem BrakeBehavior) Vehicle {
-	return Vehicle{brakeSystem: brakeSystem}
+func (v Vehicle) ShowBrand() {
+	fmt.Println("I'm ", v.brandName)
 }
 
 type BrakeBehavior interface {
@@ -41,12 +46,12 @@ func (e ElectricBrake) Brake() {
 }
 
 func StrategyDesignDemo() {
-	bmw := CreateVehicle(ABSBrake{})
+	bmw := NewVehicle(ABSBrake{}, "bmw")
 	bmw.ApplyBrake()
 
-	honda := CreateVehicle(Brake{})
+	honda := NewVehicle(Brake{}, "honda")
 	honda.ApplyBrake()
 
-	alfaRomeo := CreateVehicle(ElectricBrake{})
+	alfaRomeo := NewVehicle(ElectricBrake{}, "alfaRomeo")
 	alfaRomeo.ApplyBrake()
 }
