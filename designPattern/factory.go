@@ -1,10 +1,10 @@
+package designPattern
+
 /*
 	Also called Factory Method
 	Define an interface for creating an object but let the classes that implement the interface decide which class to instantiate.
-The factory method lets a class defer instantiation to subclasses.
+	The factory method lets a class defer instantiation to subclasses.
 */
-
-package designPattern
 
 type VehicleFactory struct{}
 

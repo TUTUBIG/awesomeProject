@@ -12,4 +12,13 @@ func TestStrategyDesignDemo(t *testing.T) {
 	t.Run("abstract factory", func(t *testing.T) {
 		AbstractFactoryDesignDemo()
 	})
+	t.Run("decorator", func(t *testing.T) {
+		DecoratorDesignDemo()
+	})
+	t.Run("observer", func(t *testing.T) {
+		ObserverDesignDemo()
+	})
+	t.Run("singleton", func(t *testing.T) {
+		SingletonDesignDemo()
+	})
 }

@@ -1,10 +1,10 @@
+package designPattern
+
 /*
 	Provide an interface for creating families of related or dependent objects without specifying their concrete classes.
 	Use when you have many objects that can be added or changed dynamically during runtime.
 	You can model anything you can imagine and have those objects interact through common interfaces
 */
-
-package designPattern
 
 import "fmt"
 
