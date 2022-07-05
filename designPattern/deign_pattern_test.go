@@ -21,4 +21,7 @@ func TestStrategyDesignDemo(t *testing.T) {
 	t.Run("singleton", func(t *testing.T) {
 		SingletonDesignDemo()
 	})
+	t.Run("state", func(t *testing.T) {
+		StateDesignDemo()
+	})
 }
